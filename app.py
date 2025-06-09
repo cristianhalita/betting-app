@@ -35,11 +35,11 @@ st.markdown("""
 
 # Etichete personalizate
 labels = [
-    "X / 1 & CA",
-    "X / 2 & CA",
-    "1 - 1 & CO",
-    "12 / 12, GG & GR2",
-    "12 / 12, NGG & 1.5G"
+    "X/1 & CARDS",
+    "X/2 & CARDS",
+    "1-1 & CORNERS",
+    "12/12, GG & GR2",
+    "12/12, NGG & 1.5G"
 ]
 
 # Inputuri pentru cote
@@ -49,7 +49,7 @@ for i in range(len(labels)):
     cote.append(cota)
 
 # Input pentru miza totală
-miza_totala = st.number_input("Miza totală (RON)", min_value=1.0, format="%.2f", step=None, key="miza_total")
+miza_totala = st.number_input("Miza totală", min_value=1.0, format="%.2f", step=None, key="miza_total")
 
 # Buton Calculează
 if st.button("Calculează"):

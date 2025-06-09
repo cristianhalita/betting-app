@@ -4,7 +4,7 @@ import numpy as np
 st.set_page_config(page_title="Calculator Profit Pariuri", layout="centered")
 st.title("📊 Calculator Profit cu Mize Egale")
 
-# CSS pentru etichete verzi și fără butoane +/-
+# CSS: etichete verzi, fără bold, fără butoane +/-
 st.markdown("""
     <style>
     label {
@@ -23,11 +23,12 @@ st.markdown("""
         padding-top: 12px;
         color: #28a745;
         font-size: 0.9rem;
+        line-height: 1.4em;
     }
     </style>
 """, unsafe_allow_html=True)
 
-# Etichete
+# Etichete personalizate
 labels = [
     "X / 1 & CA",
     "X / 2 & CA",
@@ -36,23 +37,22 @@ labels = [
     "12 / 12, NGG & 1.5G"
 ]
 
-# Colectăm inputuri și referințe pentru coloana de rezultat
+# Colectăm inputurile pe două coloane
 cote = []
 input_cols = []
 
 for i, label in enumerate(labels):
     col1, col2 = st.columns([2, 2])
     with col1:
-        st.markdown(f"**{label}**")
-        cota = st.number_input("", min_value=1.01, format="%.2f", step=None, key=f"cota_{i}")
+        cota = st.number_input(label=label, min_value=1.01, format="%.2f", step=None, key=f"cota_{i}")
         cote.append(cota)
     input_cols.append(col2)
 
-# Miza totală
+# Miza totală (sub toate liniile)
 st.markdown("**Miza totală (RON)**")
 miza_totala = st.number_input("", min_value=1.0, format="%.2f", step=None, key="miza_total")
 
-# Buton calcul
+# Buton
 if st.button("✅ Calculează"):
     if all(c > 1.0 for c in cote) and miza_totala > 0:
         inv_suma = sum(1 / c for c in cote)
@@ -63,13 +63,13 @@ if st.button("✅ Calculează"):
         st.markdown("### 📈 Rezultate")
         st.write(f"**Câștig brut comun:** `{round(castig_comun, 2)} RON`")
 
-        # Afișăm în coloanele din dreapta
         for i in range(len(labels)):
             with input_cols[i]:
                 st.markdown(
                     f"<div class='rezultat-col'>"
                     f"Miză optimă: <b>{round(mize_optime[i], 2)} RON</b><br>"
-                    f"Profit net: <b>{round(profituri[i], 2)} RON</b></div>",
+                    f"Profit net: <b>{round(profituri[i], 2)} RON</b>"
+                    f"</div>",
                     unsafe_allow_html=True
                 )
         st.success("Calcule realizate cu succes!")

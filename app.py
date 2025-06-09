@@ -60,4 +60,15 @@ if st.button("✅ Calculează"):
         profituri = [castig_comun - m for m in mize_optime]
 
         st.subheader("📈 Rezultate")
-        st.write("Câștig brut comun:",
+        st.write("Câștig brut comun:", round(castig_comun, 2), "RON")
+
+        table_data = {
+            "Variantă": labels,
+            "Miză optimă (RON)": [round(m, 2) for m in mize_optime],
+            "Profit net (RON)": [round(p, 2) for p in profituri]
+        }
+
+        st.table(table_data)
+        st.success("Calcule realizate cu succes!")
+    else:
+        st.error("Te rog completează toate cotele (>1.0) și miza totală (>0).")

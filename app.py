@@ -22,6 +22,9 @@ st.markdown("""
         border: none;
         padding: 0.5em 1em;
         border-radius: 5px;
+    },
+    [data-testid="stNumberInputStepUp"] {
+    display:none
     }
     </style>
 """, unsafe_allow_html=True)

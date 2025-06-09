@@ -1,10 +1,11 @@
 import streamlit as st
 import numpy as np
+import pandas as pd
 
 st.set_page_config(page_title="Calculator Profit Pariuri", layout="centered")
 st.title("📊 Calculator Profit cu Mize Egale")
 
-# CSS: etichete verzi, fără +/-, buton verde aliniat dreapta
+# CSS personalizat
 st.markdown("""
     <style>
     label {
@@ -31,7 +32,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Etichete
+# Etichete personalizate
 labels = [
     "X / 1 & CA",
     "X / 2 & CA",
@@ -40,37 +41,10 @@ labels = [
     "12 / 12, NGG & 1.5G"
 ]
 
-# 2 coloane: inputuri stânga, rezultate dreapta
+# Două coloane: input și rezultate
 col_input, col_result = st.columns(2)
 
 with col_input:
     cote = []
     for i in range(len(labels)):
-        cota = st.number_input(f"{labels[i]}", min_value=1.01, format="%.2f", step=None, key=f"cota_{i}")
-        cote.append(cota)
-
-    miza_totala = st.number_input("Miza totală (RON)", min_value=1.0, format="%.2f", step=None, key="miza_total")
-
-    calculeaza = st.button("✅ Calculează")
-
-with col_result:
-    if calculeaza:
-        if all(c > 1.0 for c in cote) and miza_totala > 0:
-            inv_sume = sum(1 / c for c in cote)
-            castig_comun = miza_totala / inv_sume
-            mize_optime = [castig_comun / c for c in cote]
-            profituri = [castig_comun - m for m in mize_optime]
-
-            st.subheader("📈 Rezultate")
-            st.write("Câștig brut comun:", round(castig_comun, 2), "RON")
-
-            table_data = {
-                "Variantă": labels,
-                "Miză optimă (RON)": [round(m, 2) for m in mize_optime],
-                "Profit net (RON)": [round(p, 2) for p in profituri]
-            }
-
-            st.table(table_data)
-            st.success("Calcule realizate cu succes!")
-        else:
-            st.error("Completează toate cotele (>1.0) și miza totală (>0).")
+        cota = st.number_input(f"{labels[i]}", min_value=1.01, format="%.2f", step=None, key=f"cot

@@ -1,8 +1,8 @@
 import streamlit as st
 import numpy as np
 
-st.set_page_config(page_title="SRS Betting System", layout="centered")
-st.title("SRS Betting System")
+st.set_page_config(page_title="Calculator Profit Pariuri", layout="centered")
+st.title("📊 Calculator Profit cu Mize Optime")
 
 st.markdown("Introdu cele 5 variante de pariu și o miză totală. Apasă 'Calculează' pentru a vedea mizele optime și profitul net egalizat.")
 

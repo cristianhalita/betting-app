@@ -47,4 +47,27 @@ col_input, col_result = st.columns(2)
 with col_input:
     cote = []
     for i in range(len(labels)):
-        cota = st.number_input(f"{labels[i]}", min_value=1.01, format="%.2f", step=None, key=f"cot
+        cota = st.number_input(f"{labels[i]}", min_value=1.01, format="%.2f", step=None, key=f"cota_{i}")
+        cote.append(cota)
+
+    miza_totala = st.number_input("Miza totală (RON)", min_value=1.0, format="%.2f", step=None, key="miza_total")
+
+    calculeaza = st.button("✅ Calculează")
+
+with col_result:
+    if calculeaza:
+        if all(c > 1.0 for c in cote) and miza_totala > 0:
+            inv_sume = sum(1 / c for c in cote)
+            castig_comun = miza_totala / inv_sume
+            mize_optime = [castig_comun / c for c in cote]
+            profituri = [castig_comun - m for m in mize_optime]
+
+            st.subheader("📈 Rezultate")
+            st.write("Câștig brut comun:", round(castig_comun, 2), "RON")
+
+            df = pd.DataFrame({
+                "Miză optimă (RON)": [round(m, 2) for m in mize_optime],
+                "Profit net (RON)": [round(p, 2) for p in profituri]
+            }, index=labels)
+
+            st.datafr

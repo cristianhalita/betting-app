@@ -25,8 +25,8 @@ st.markdown("""
     display:none
     },
     .st-emotion-cache-ktz07o:hover {
-border-color: white;
-    color: black;
+        border-color: white !important;
+        color: black !important;
 }
     
     </style>

@@ -4,6 +4,8 @@ import numpy as np
 st.set_page_config(page_title="SRS - Betting System", layout="centered")
 st.title("SRS - Betting System")
 
+st.subheader("💡Furnizează cotele corespunzătoare și miza totală dorită")
+
 # CSS: etichete verzi, fără bold, fără butoane +/-, buton Calculează aliniat dreapta
 st.markdown("""
     <style>

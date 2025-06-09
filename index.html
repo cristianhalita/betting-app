@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculator Profit Pariuri</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <h2>📊 Calculator Profit cu Mize Egale</h2>
+
+  <div id="form">
+    <label>Cotă 1:</label>
+    <input type="number" step="0.01" id="cota1">
+    <label>Cotă 2:</label>
+    <input type="number" step="0.01" id="cota2">
+    <label>Cotă 3:</label>
+    <input type="number" step="0.01" id="cota3">
+    <label>Cotă 4:</label>
+    <input type="number" step="0.01" id="cota4">
+    <label>Cotă 5:</label>
+    <input type="number" step="0.01" id="cota5">
+
+    <label>Miza totală (RON):</label>
+    <input type="number" step="0.01" id="miza">
+
+    <button onclick="calculeaza()">✅ Calculează</button>
+  </div>
+
+  <div id="castig"></div>
+  <div id="rezultate"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>

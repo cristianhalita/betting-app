@@ -6,6 +6,21 @@ st.title("📊 Calculator Profit cu Mize Optime")
 
 st.markdown("Introdu cele 5 variante de pariu și o miză totală. Apasă 'Calculează' pentru a vedea mizele optime și profitul net egalizat.")
 
+# CSS pentru a colora inputurile în roșu și a ascunde butoanele stepper
+st.markdown("""
+    <style>
+    input[type="number"] {
+        color: red !important;
+    }
+    /* Ascunde butoanele +/- */
+    [data-testid="stNumberInput"] input::-webkit-outer-spin-button,
+    [data-testid="stNumberInput"] input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 # Etichete personalizate
 labels = [
     "X / 1  & CA",
@@ -18,20 +33,17 @@ labels = [
 # Inputuri afișate vertical
 cote = []
 for i in range(len(labels)):
-    st.markdown(f"<b>{labels[i]}</b>", unsafe_allow_html=True)
-    cota = st.text_input("", placeholder="Introdu cota", key=f"cota_{i}")
-    try:
-        cota = float(cota)
-    except:
-        cota = 0.0
+    st.markdown(f"**{labels[i]}**")
+    cota = st.number_input("", min_value=1.01, format="%.2f", key=f"cota_{i}", step=None)
     cote.append(cota)
 
 # Miza totală
-miza_totala = st.number_input("Miza totală (RON)", min_value=1.0, step=0.5, format="%.1f")
+st.markdown("**Miza totală (RON)**")
+miza_totala = st.number_input("", min_value=1.0, format="%.2f", step=None, key="miza_total")
 
-# Buton funcțional, aliniat la dreapta
-col1, col2 = st.columns([3, 1])
-with col2:
+# Buton „Calculează” aliniat perfect cu inputurile
+_, col_btn = st.columns([3, 1])
+with col_btn:
     if st.button("✅ Calculează", key="calc_button"):
         if all(c > 1.0 for c in cote) and miza_totala > 0:
             inv_sume = sum(1 / c for c in cote)

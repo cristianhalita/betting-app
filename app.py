@@ -52,7 +52,7 @@ for i in range(len(labels)):
 miza_totala = st.number_input("Miza totală (RON)", min_value=1.0, format="%.2f", step=None, key="miza_total")
 
 # Buton Calculează
-if st.button("🤔 Calculează"):
+if st.button("Calculează"):
     if all(c > 1.0 for c in cote) and miza_totala > 0:
         inv_sume = sum(1 / c for c in cote)
         castig_comun = miza_totala / inv_sume

@@ -18,13 +18,26 @@ labels = [
 # Inputuri afișate vertical
 cote = []
 for i in range(len(labels)):
-    cota = st.number_input(labels[i], min_value=1.01, step=0.01, format="%.2f", key=f"cota_{i}")
+    st.markdown(f"<b>{labels[i]}</b>", unsafe_allow_html=True)
+    cota = st.text_input("", placeholder="Introdu cota", key=f"cota_{i}")
+    try:
+        cota = float(cota)
+    except:
+        cota = 0.0
     cote.append(cota)
 
 miza_totala = st.number_input("Miza totală (RON)", min_value=1.0, step=0.5, format="%.2f")
 
-# Buton pentru calcul
-if st.button("Calculează"):
+# Buton pentru calcul aliniat la dreapta și stilizat
+st.markdown("""
+    <div style='display: flex; justify-content: flex-end;'>
+        <form action="#" method="post">
+            <button style='background-color: #28a745; color: white; padding: 0.5em 1em; border: none; border-radius: 5px;'>Calculează</button>
+        </form>
+    </div>
+""", unsafe_allow_html=True)
+
+if st.session_state.get("Calculează") or st.button("Calculează"):
     if all(c > 1.0 for c in cote) and miza_totala > 0:
         inv_sume = sum(1 / c for c in cote)
         castig_comun = miza_totala / inv_sume

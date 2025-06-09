@@ -1,11 +1,10 @@
 import streamlit as st
 import numpy as np
-import pandas as pd
 
 st.set_page_config(page_title="Calculator Profit Pariuri", layout="centered")
 st.title("📊 Calculator Profit cu Mize Egale")
 
-# CSS personalizat
+# CSS: verde etichete, fără bold, fără butoane +/-
 st.markdown("""
     <style>
     label {
@@ -32,7 +31,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Etichete personalizate
 labels = [
     "X / 1 & CA",
     "X / 2 & CA",
@@ -41,36 +39,43 @@ labels = [
     "12 / 12, NGG & 1.5G"
 ]
 
-# Două coloane: input și rezultate
-col_input, col_result = st.columns(2)
+# Colectăm inputurile
+cote = []
+mize_optime = []
+profituri = []
+calculeaza = False
 
-with col_input:
-    cote = []
-    for i in range(len(labels)):
-        cota = st.number_input(f"{labels[i]}", min_value=1.01, format="%.2f", step=None, key=f"cota_{i}")
-        cote.append(cota)
+st.subheader("📥 Introdu datele")
 
-    miza_totala = st.number_input("Miza totală (RON)", min_value=1.0, format="%.2f", step=None, key="miza_total")
+for i in range(len(labels)):
+    cota = st.number_input(f"{labels[i]}", min_value=1.01, format="%.2f", step=None, key=f"cota_{i}")
+    cote.append(cota)
+    st.markdown(f"<div id='miza_{i}'></div>", unsafe_allow_html=True)  # loc pentru miză calculată
 
-    calculeaza = st.button("✅ Calculează")
+miza_totala = st.number_input("Miza totală (RON)", min_value=1.0, format="%.2f", step=None, key="miza_total")
 
-with col_result:
-    if calculeaza:
-        if all(c > 1.0 for c in cote) and miza_totala > 0:
-            inv_sume = sum(1 / c for c in cote)
-            castig_comun = miza_totala / inv_sume
-            mize_optime = [castig_comun / c for c in cote]
-            profituri = [castig_comun - m for m in mize_optime]
+# Buton
+calculeaza = st.button("✅ Calculează")
 
-            st.subheader("📈 Rezultate")
-            st.write("Câștig brut comun:", round(castig_comun, 2), "RON")
+# Calcul și afișare sub fiecare input
+if calculeaza:
+    if all(c > 1.0 for c in cote) and miza_totala > 0:
+        inv_sume = sum(1 / c for c in cote)
+        castig_comun = miza_totala / inv_sume
+        mize_optime = [castig_comun / c for c in cote]
+        profituri = [castig_comun - m for m in mize_optime]
 
-            df = pd.DataFrame({
-                "Miză optimă (RON)": [round(m, 2) for m in mize_optime],
-                "Profit net (RON)": [round(p, 2) for p in profituri]
-            }, index=labels)
-
-            st.dataframe(df, use_container_width=True, hide_index=False)
-            st.success("Calcule realizate cu succes!")
-        else:
-            st.error("Completează toate cotele (>1.0) și miza totală (>0).")
+        st.markdown("### 📈 Rezultate")
+        st.write(f"**Câștig brut comun:** `{round(castig_comun, 2)} RON`")
+        
+        for i in range(len(labels)):
+            st.markdown(
+                f"<div style='margin-top:-20px; margin-bottom:20px; color:#28a745;'>"
+                f"Miză optimă: <b>{round(mize_optime[i], 2)} RON</b><br>"
+                f"Profit net: <b>{round(profituri[i], 2)} RON</b>"
+                f"</div>",
+                unsafe_allow_html=True
+            )
+        st.success("Calcule realizate cu succes!")
+    else:
+        st.error("Completează toate cotele (>1.0) și miza totală (>0).")

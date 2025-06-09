@@ -1,39 +1,40 @@
-
 import streamlit as st
 import numpy as np
 
 st.set_page_config(page_title="Calculator Profit Pariuri", layout="centered")
 st.title("📊 Calculator Profit cu Mize Optime")
 
-st.markdown("Introdu 5 cote și o miză totală. Apasă 'Calculează' pentru a vedea mizele optime și profitul net egalizat.")
+st.markdown("Introdu cele 5 variante de pariu și o miză totală. Apasă 'Calculează' pentru a vedea mizele optime și profitul net egalizat.")
 
-# Inputuri
-cols = st.columns(5)
+# CSS pentru etichete verzi și ascunderea butoanelor +/- din inputuri
+st.markdown("""
+    <style>
+    label, div[data-testid="stNumberInput"] > div > div > input {
+        color: green !important;
+    }
+    /* Ascunde butoanele +/- */
+    [data-testid="stNumberInput"] input::-webkit-outer-spin-button,
+    [data-testid="stNumberInput"] input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    [data-testid="stNumberInput"] input[type=number] {
+        -moz-appearance: textfield;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# Etichete personalizate
+labels = [
+    "X / 1 & CA",
+    "X / 2 & CA",
+    "1 - 1 & CO",
+    "12 / 12, GG & GR2",
+    "12 / 12, NGG & 1.5G"
+]
+
+# Inputuri pentru cote (afișate vertical)
 cote = []
-for i, col in enumerate(cols):
-    cota = col.number_input(f"Cota {i+1}", min_value=1.01, step=0.01, format="%.2f", key=f"cota_{i}")
-    cote.append(cota)
-
-miza_totala = st.number_input("Miza totală (RON)", min_value=1.0, step=0.5, format="%.2f")
-
-# Buton pentru calcul
-if st.button("Calculează"):
-    if all(c > 1.0 for c in cote) and miza_totala > 0:
-        inv_sume = sum(1 / c for c in cote)
-        castig_comun = miza_totala / inv_sume
-        mize_optime = [castig_comun / c for c in cote]
-        profituri = [castig_comun - m for m in mize_optime]
-
-        st.subheader("📈 Rezultate")
-        st.write("Câștig brut comun:", round(castig_comun, 2), "RON")
-
-        table_data = {
-            "Cota": cote,
-            "Miză optimă (RON)": [round(m, 2) for m in mize_optime],
-            "Profit net (RON)": [round(p, 2) for p in profituri]
-        }
-
-        st.table(table_data)
-        st.success("Calcule realizate cu succes!")
-    else:
-        st.error("Te rog completează toate cotele (>1.0) și miza totală (>0).")
+for i in range(len(labels)):
+    st.markdown(f"**{labels[i]}**")
+    cota = st.number_input("", min_value=1.01, format="%.2f", key=f"cota_{i}", step=None)

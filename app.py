@@ -29,15 +29,15 @@ for i in range(len(labels)):
 miza_totala = st.number_input("Miza totală (RON)", min_value=1.0, step=0.5, format="%.2f")
 
 # Buton pentru calcul aliniat la dreapta și stilizat
-st.markdown("""
+clicked = st.markdown("""
     <div style='display: flex; justify-content: flex-end;'>
-        <form action="#" method="post">
-            <button style='background-color: #28a745; color: white; padding: 0.5em 1em; border: none; border-radius: 5px;'>Calculează</button>
-        </form>
+        <button onclick="document.dispatchEvent(new CustomEvent('streamlit:buttonClicked', {detail:{name:'calc'}}))" 
+                style='background-color: #28a745; color: white; padding: 0.5em 1em; border: none; border-radius: 5px;'>Calculează</button>
     </div>
 """, unsafe_allow_html=True)
 
-if st.session_state.get("Calculează") or st.button("Calculează"):
+# Buton invizibil care declanșează calculul real
+if st.button("Calculează", key="calc_button"):
     if all(c > 1.0 for c in cote) and miza_totala > 0:
         inv_sume = sum(1 / c for c in cote)
         castig_comun = miza_totala / inv_sume

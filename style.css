@@ -16,7 +16,7 @@ input {
 }
 button {
   float: right;
-  padding: 10px 20px;
+/*   padding: 10px 20px; */
   background-color: #28a745;
   color: white;
   border: none;

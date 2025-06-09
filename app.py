@@ -27,7 +27,7 @@ for i in range(len(labels)):
     cote.append(cota)
 
 # Miza totală
-miza_totala = st.number_input("Miza totală (RON)", min_value=1.0, step=0.5, format="%.2f")
+miza_totala = st.number_input("Miza totală (RON)", min_value=1.0, step=0.5, format="%.1f")
 
 # Buton funcțional, aliniat la dreapta
 col1, col2 = st.columns([3, 1])

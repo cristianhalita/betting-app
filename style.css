@@ -22,7 +22,6 @@ button {
   border-radius: 5px;
   cursor: pointer;
   display: block;
-  float: left;
 }
 table {
   width: 100%;

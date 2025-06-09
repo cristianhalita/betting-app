@@ -14,15 +14,6 @@ st.markdown("""
         color: green !important;
         font-weight: normal !important;
     }
-    /* Ascunde butoanele +/- */
-    [data-testid="stNumberInput"] input::-webkit-outer-spin-button,
-    [data-testid="stNumberInput"] input::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
-    [data-testid="stNumberInput"] input[type=number] {
-        -moz-appearance: textfield;
-    }
     /* Buton verde aliniat dreapta */
     div.stButton > button {
         float: right;

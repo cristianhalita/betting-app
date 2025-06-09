@@ -24,9 +24,10 @@ st.markdown("""
     [data-testid="stNumberInputStepUp"] {
     display:none
     },
-    [data-testid="stMarkdownContainer"] {
-     color: black !important;
-    }
+    .st-emotion-cache-ktz07o:hover {
+border-color: white;
+    color: black;
+}
     
     </style>
 """, unsafe_allow_html=True)

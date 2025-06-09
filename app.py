@@ -27,7 +27,12 @@ st.markdown("""
     [data-testid="stBaseButton-secondary"].st-emotion-cache-ktz07o:focus:not(:active){
         border-color: black !important;
         color: black !important;
-}
+    },
+    [data-testid="stBaseButton-secondary"].st-emotion-cache-ktz07o:active {
+    color: black !important;;
+    border-color: white !important;;
+    background-color: white !important;;
+    }
     
     </style>
 """, unsafe_allow_html=True)

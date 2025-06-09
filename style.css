@@ -10,7 +10,7 @@ label {
   margin-top: 10px;
 }
 input {
-  width: 50%;
+  width: auto;
   padding: 8px;
   margin-bottom: 10px;
 }
@@ -22,7 +22,7 @@ button {
   border-radius: 5px;
   cursor: pointer;
   display: block;
-    float: inline-end;
+  float: inline-end;
 }
 table {
   width: 100%;

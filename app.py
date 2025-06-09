@@ -64,8 +64,8 @@ if st.button("✅ Calculează"):
 
         table_data = {
             "Variantă": labels,
-            "Miză optimă (RON)": [float(round(m, 2)) for m in mize_optime],
-            "Profit net (RON)": [float(round(p, 2)) for p in profituri]
+           "Miză optimă (RON)": [f"{m:.2f}" for m in mize_optime],
+    "Profit net (RON)": [f"{p:.2f}" for p in profituri]
         }
 
         st.table(table_data)

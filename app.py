@@ -2,7 +2,7 @@ import streamlit as st
 import numpy as np
 
 st.set_page_config(page_title="SRS - Betting System", layout="centered")
-st.subheader("💡SRS - Betting System Calculator")
+st.subheader("SRS - Betting System Calculator 💡")
 st.write("Furnizează cotele corespunzătoare și miza totală dorită")
 
 

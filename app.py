@@ -70,4 +70,7 @@ with col_result:
                 "Profit net (RON)": [round(p, 2) for p in profituri]
             }, index=labels)
 
-            st.datafr
+            st.dataframe(df, use_container_width=True, hide_index=False)
+            st.success("Calcule realizate cu succes!")
+        else:
+            st.error("Completează toate cotele (>1.0) și miza totală (>0).")

@@ -1,8 +1,8 @@
 import streamlit as st
 import numpy as np
 
-st.set_page_config(page_title="Calculator Profit Pariuri", layout="centered")
-st.title("📊 Calculator Profit cu Mize Egale")
+st.set_page_config(page_title="SRS - Betting System", layout="centered")
+st.title("SRS - Betting System")
 
 # CSS: etichete verzi, fără bold, fără butoane +/-, buton Calculează aliniat dreapta
 st.markdown("""
@@ -52,7 +52,7 @@ for i in range(len(labels)):
 miza_totala = st.number_input("Miza totală (RON)", min_value=1.0, format="%.2f", step=None, key="miza_total")
 
 # Buton Calculează
-if st.button("✅ Calculează"):
+if st.button("🤔 Calculează"):
     if all(c > 1.0 for c in cote) and miza_totala > 0:
         inv_sume = sum(1 / c for c in cote)
         castig_comun = miza_totala / inv_sume

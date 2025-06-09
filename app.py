@@ -29,9 +29,9 @@ st.markdown("""
         color: black !important;
     },
     [data-testid="stBaseButton-secondary"].st-emotion-cache-ktz07o:active {
-    color: black !important;;
-    border-color: white !important;;
-    background-color: white !important;;
+    color: black !important;
+    border-color: white !important;
+    background-color: white !important;
     }
     
     </style>

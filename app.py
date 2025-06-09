@@ -24,7 +24,7 @@ st.markdown("""
     [data-testid="stNumberInputStepUp"] {
     display:none
     },
-    .st-emotion-cache-ktz07o:hover {
+    [data-testid="stBaseButton-secondary"].st-emotion-cache-ktz07o:hover {
         border-color: white !important;
         color: black !important;
 }

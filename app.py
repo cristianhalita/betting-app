@@ -26,34 +26,29 @@ for i in range(len(labels)):
         cota = 0.0
     cote.append(cota)
 
+# Miza totală
 miza_totala = st.number_input("Miza totală (RON)", min_value=1.0, step=0.5, format="%.2f")
 
-# Buton pentru calcul aliniat la dreapta și stilizat
-clicked = st.markdown("""
-    <div style='display: flex; justify-content: flex-end;'>
-        <button onclick="document.dispatchEvent(new CustomEvent('streamlit:buttonClicked', {detail:{name:'calc'}}))" 
-                style='background-color: #28a745; color: white; padding: 0.5em 1em; border: none; border-radius: 5px;'>Calculează</button>
-    </div>
-""", unsafe_allow_html=True)
+# Buton funcțional, aliniat la dreapta
+col1, col2 = st.columns([3, 1])
+with col2:
+    if st.button("✅ Calculează", key="calc_button"):
+        if all(c > 1.0 for c in cote) and miza_totala > 0:
+            inv_sume = sum(1 / c for c in cote)
+            castig_comun = miza_totala / inv_sume
+            mize_optime = [castig_comun / c for c in cote]
+            profituri = [castig_comun - m for m in mize_optime]
 
-# Buton invizibil care declanșează calculul real
-if st.button("Calculează", key="calc_button"):
-    if all(c > 1.0 for c in cote) and miza_totala > 0:
-        inv_sume = sum(1 / c for c in cote)
-        castig_comun = miza_totala / inv_sume
-        mize_optime = [castig_comun / c for c in cote]
-        profituri = [castig_comun - m for m in mize_optime]
+            st.subheader("📈 Rezultate")
+            st.write("Câștig brut comun:", round(castig_comun, 2), "RON")
 
-        st.subheader("📈 Rezultate")
-        st.write("Câștig brut comun:", round(castig_comun, 2), "RON")
+            table_data = {
+                "Variantă": labels,
+                "Miză optimă (RON)": [round(m, 2) for m in mize_optime],
+                "Profit net (RON)": [round(p, 2) for p in profituri]
+            }
 
-        table_data = {
-            "Variantă": labels,
-            "Miză optimă (RON)": [round(m, 2) for m in mize_optime],
-            "Profit net (RON)": [round(p, 2) for p in profituri]
-        }
-
-        st.table(table_data)
-        st.success("Calcule realizate cu succes!")
-    else:
-        st.error("Te rog completează toate cotele (>1.0) și miza totală (>0).")
+            st.table(table_data)
+            st.success("Calcule realizate cu succes!")
+        else:
+            st.error("Te rog completează toate cotele (>1.0) și miza totală (>0).")

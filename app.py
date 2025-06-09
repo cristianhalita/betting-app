@@ -4,26 +4,31 @@ import numpy as np
 st.set_page_config(page_title="Calculator Profit Pariuri", layout="centered")
 st.title("📊 Calculator Profit cu Mize Egale")
 
-# CSS: etichete verzi, fără bold, fără butoane +/-
+# CSS: etichete verzi, fără bold, fără butoane +/-, buton Calculează aliniat dreapta
 st.markdown("""
     <style>
+    /* Verde simplu pentru etichete */
     label {
         color: green !important;
         font-weight: normal !important;
     }
-    [data-baseweb="input"] input[type=number]::-webkit-outer-spin-button,
-    [data-baseweb="input"] input[type=number]::-webkit-inner-spin-button {
+    /* Ascunde butoanele +/- */
+    [data-testid="stNumberInput"] input::-webkit-outer-spin-button,
+    [data-testid="stNumberInput"] input::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
     }
-    [data-baseweb="input"] input[type=number] {
+    [data-testid="stNumberInput"] input[type=number] {
         -moz-appearance: textfield;
     }
-    .rezultat-col {
-        padding-top: 12px;
-        color: #28a745;
-        font-size: 0.9rem;
-        line-height: 1.4em;
+    /* Buton verde aliniat dreapta */
+    div.stButton > button {
+        float: right;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        padding: 0.5em 1em;
+        border-radius: 5px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -37,41 +42,33 @@ labels = [
     "12 / 12, NGG & 1.5G"
 ]
 
-# Colectăm inputurile pe două coloane
+# Inputuri pentru cote
 cote = []
-input_cols = []
+for i in range(len(labels)):
+    cota = st.number_input(f"{labels[i]}", min_value=1.01, format="%.2f", step=None, key=f"cota_{i}")
+    cote.append(cota)
 
-for i, label in enumerate(labels):
-    col1, col2 = st.columns([2, 2])
-    with col1:
-        cota = st.number_input(label=label, min_value=1.01, format="%.2f", step=None, key=f"cota_{i}")
-        cote.append(cota)
-    input_cols.append(col2)
+# Input pentru miza totală
+miza_totala = st.number_input("Miza totală (RON)", min_value=1.0, format="%.2f", step=None, key="miza_total")
 
-# Miza totală (sub toate liniile)
-st.markdown("**Miza totală (RON)**")
-miza_totala = st.number_input("", min_value=1.0, format="%.2f", step=None, key="miza_total")
-
-# Buton
+# Buton Calculează
 if st.button("✅ Calculează"):
     if all(c > 1.0 for c in cote) and miza_totala > 0:
-        inv_suma = sum(1 / c for c in cote)
-        castig_comun = miza_totala / inv_suma
+        inv_sume = sum(1 / c for c in cote)
+        castig_comun = miza_totala / inv_sume
         mize_optime = [castig_comun / c for c in cote]
         profituri = [castig_comun - m for m in mize_optime]
 
-        st.markdown("### 📈 Rezultate")
-        st.write(f"**Câștig brut comun:** `{round(castig_comun, 2)} RON`")
+        st.subheader("📈 Rezultate")
+        st.write("Câștig brut comun:", round(castig_comun, 2), "RON")
 
-        for i in range(len(labels)):
-            with input_cols[i]:
-                st.markdown(
-                    f"<div class='rezultat-col'>"
-                    f"Miză optimă: <b>{round(mize_optime[i], 2)} RON</b><br>"
-                    f"Profit net: <b>{round(profituri[i], 2)} RON</b>"
-                    f"</div>",
-                    unsafe_allow_html=True
-                )
+        table_data = {
+            "Variantă": labels,
+            "Miză optimă (RON)": [round(m, 2) for m in mize_optime],
+            "Profit net (RON)": [round(p, 2) for p in profituri]
+        }
+
+        st.table(table_data)
         st.success("Calcule realizate cu succes!")
     else:
-        st.error("Completează toate cotele (>1.0) și miza totală (>0).")
+        st.error("Te rog completează toate cotele (>1.0) și miza totală (>0).")

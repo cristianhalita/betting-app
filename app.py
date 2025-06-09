@@ -5,8 +5,6 @@ st.set_page_config(page_title="SRS - Betting System", layout="centered")
 st.subheader("SRS - Betting System Calculator 💡")
 st.write("Furnizează cotele corespunzătoare și miza totală dorită")
 
-
-# CSS: etichete verzi, fără bold, fără butoane +/-, buton Calculează aliniat dreapta
 st.markdown("""
     <style>
     /* Verde simplu pentru etichete */
@@ -25,7 +23,11 @@ st.markdown("""
     },
     [data-testid="stNumberInputStepUp"] {
     display:none
+    },
+    [data-testid="stMarkdownContainer"] {
+     color: black !important;
     }
+    
     </style>
 """, unsafe_allow_html=True)
 

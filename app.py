@@ -4,7 +4,7 @@ import numpy as np
 st.set_page_config(page_title="Calculator Profit Pariuri", layout="centered")
 st.title("📊 Calculator Profit cu Mize Egale")
 
-# CSS: etichete verzi, fără bold, fără butoane +/-, buton Calculează aliniat dreapta
+# CSS: etichete verzi, fără bold, fără butoane +/-, și aliniere perfectă a butonului
 st.markdown("""
     <style>
     /* Verde simplu pentru etichete */
@@ -12,16 +12,18 @@ st.markdown("""
         color: green !important;
         font-weight: normal !important;
     }
-    /* Ascunde butoanele +/- */
-    [data-testid="stNumberInput"] input::-webkit-outer-spin-button,
-    [data-testid="stNumberInput"] input::-webkit-inner-spin-button {
+
+    /* Ascunde butoanele +/- din number_input */
+    [data-baseweb="input"] input[type=number]::-webkit-outer-spin-button,
+    [data-baseweb="input"] input[type=number]::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
     }
-    [data-testid="stNumberInput"] input[type=number] {
+    [data-baseweb="input"] input[type=number] {
         -moz-appearance: textfield;
     }
-    /* Buton verde aliniat dreapta */
+
+    /* Aliniere și stilizare buton Calculează */
     div.stButton > button {
         float: right;
         background-color: #28a745;
@@ -29,6 +31,7 @@ st.markdown("""
         border: none;
         padding: 0.5em 1em;
         border-radius: 5px;
+        margin-top: 10px;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -48,7 +51,7 @@ for i in range(len(labels)):
     cota = st.number_input(f"{labels[i]}", min_value=1.01, format="%.2f", step=None, key=f"cota_{i}")
     cote.append(cota)
 
-# Input pentru miza totală
+# Miza totală
 miza_totala = st.number_input("Miza totală (RON)", min_value=1.0, format="%.2f", step=None, key="miza_total")
 
 # Buton Calculează

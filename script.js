@@ -31,5 +31,11 @@ function calculeaza() {
 
   tableHTML += "</table>";
   document.getElementById("rezultate").innerHTML = tableHTML;
-  document.getElementById("castig").innerText = `Câștig brut comun: ${castigComun.toFixed(2)} RON`;
+
+  const castigElem = document.getElementById("castig");
+  if (castigComun < mizaTotala) {
+    castigElem.innerHTML = `<span style="color: red;">Câștig brut comun: ${castigComun.toFixed(2)} RON<br><b>Atenție:</b> Miza totală este mai mare decât câștigul!</span>`;
+  } else {
+    castigElem.innerHTML = `Câștig brut comun: ${castigComun.toFixed(2)} RON`;
+  }
 }

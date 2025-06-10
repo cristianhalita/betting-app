@@ -21,7 +21,7 @@ function calculeaza() {
 
   for (let i = 0; i < cote.length; i++) {
     const miza = castigComun / cote[i];
-    const profit = castigComun - miza;
+    const profit = castigComun - mizaTotala;
     tableHTML += `<tr>
         <td>${cote[i].toFixed(2)}</td>
         <td>${miza.toFixed(2)}</td>
@@ -34,8 +34,8 @@ function calculeaza() {
 
   const castigElem = document.getElementById("castig");
   if (castigComun < mizaTotala) {
-    castigElem.innerHTML = `<span style="color: red;">Câștig brut comun: ${castigComun.toFixed(2)} RON<br><b>Atenție:</b> Miza totală este mai mare decât câștigul!</span>`;
+    castigElem.innerHTML = `<span style="color: red;">Câștig eventual: ${castigComun.toFixed(2)} RON<br><b>Atenție:</b> Miza totală este mai mare decât câștigul!</span>`;
   } else {
-    castigElem.innerHTML = `Câștig brut comun: ${castigComun.toFixed(2)} RON`;
+    castigElem.innerHTML = `Câștig eventual: ${castigComun.toFixed(2)} RON`;
   }
 }
